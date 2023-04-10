@@ -1,9 +1,12 @@
 {
   "name": "x",
-  "version": "0.0.0+2",
+  "version": "0.0.0+3",
   "description": "x",
   "type": "module",
   "main": "./src/index.js",
+  "imports": {
+    "#src/*.js": "./src/*.js"
+  },
   "repository": "",
   "author": {
     "name": "azder",

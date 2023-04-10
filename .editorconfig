@@ -18,5 +18,5 @@ trim_trailing_whitespace = true
 indent_size = 2
 
 
-[{package.json, package-lock.json, .eslintrc.json}]
+[*.json]
 indent_size = 2
