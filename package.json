@@ -1,6 +1,6 @@
 {
-  "name": "x",
-  "version": "0.0.0+3",
+  "name": "@x-e-l/x2",
+  "version": "0.0.0+4",
   "description": "x",
   "type": "module",
   "main": "./src/index.js",

@@ -17,7 +17,13 @@ const rename$ = (object, value) => {
         return;
     }
 
+    if (Array.isArray(value)) {
+        Object.defineProperty(object, 'name', {value: 'array'});
+        return;
+    }
+
     const s = String(value);
+    
     if ('[object Object]' === s) {
         Object.defineProperty(object, 'name', {value: 'object'});
         return;
