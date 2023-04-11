@@ -1,10 +1,7 @@
 import estype from '#src/util/estype.util.js';
 
 
-const primitive = (hint, value) => {
-    if ('number' !== hint) {
-        return String(value);
-    }
+const toNumber = value => {
 
     if (null === value || void 1 === value) {
         return NaN;
@@ -27,4 +24,4 @@ const primitive = (hint, value) => {
 
 
 // noinspection JSUnusedGlobalSymbols
-export default primitive;
+export default toNumber;

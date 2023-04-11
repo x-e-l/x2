@@ -3,8 +3,8 @@
 
 import {describe, expect, it} from '@jest/globals';
 import is from './is.op.js';
-import X from '#src/core/x.core.js';
 import {V} from '#src/etc/field.const.js';
+import X from '#src/index.js';
 
 
 const VALUES = Object.freeze([
@@ -27,14 +27,14 @@ describe('function is', () => {
         // noinspection JSIncompatibleTypesComparison
         const expected = Object.is(a, b);
 
-        expect(is(a, b) instanceof X).toBe(true);
+        expect(is(a, b) instanceof X.constructor).toBe(true);
         expect(is(a, b)[V]).toBe(expected);
 
-        expect(is(X.X(a), b) instanceof X).toBe(true);
-        expect(is(X.X(a), b)[V]).toBe(expected);
+        expect(is(X(a), b) instanceof X.constructor).toBe(true);
+        expect(is(X(a), b)[V]).toBe(expected);
 
-        expect(is(X.X(a), X.X(b)) instanceof X).toBe(true);
-        expect(is(X.X(a), X.X(b))[V]).toBe(expected);
+        expect(is(X(a), X(b)) instanceof X.constructor).toBe(true);
+        expect(is(X(a), X(b))[V]).toBe(expected);
 
     });
 

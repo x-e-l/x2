@@ -1,20 +1,19 @@
-import COMMON from '#src/core/common.core.js';
 import {NZ, PZ} from '#src/etc/field.const.js';
 
 
-const reuse = $ => {
+const reuse = (common, value) => {
 
 
-    if (Object.is($, -0) && COMMON.has(NZ)) {
-        return COMMON.get(NZ);
+    if (Object.is(value, -0) && common.has(NZ)) {
+        return common.get(NZ);
     }
 
-    if (Object.is($, +0) && COMMON.has(PZ)) {
-        return COMMON.get(PZ);
+    if (Object.is(value, +0) && common.has(PZ)) {
+        return common.get(PZ);
     }
 
-    if (COMMON.has($)) {
-        return COMMON.get($);
+    if (common.has(value)) {
+        return common.get(value);
     }
 
     return void 1;
