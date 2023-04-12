@@ -1,3 +1,4 @@
+import iterator from '#src/core/iterator.core.js';
 import {
     ES_TYPE,
     ES_VALUE,
@@ -12,7 +13,6 @@ import {
     TO_STR,
     V,
 } from '#src/etc/field.const.js';
-import iterator from '#src/iterator.core.js';
 import estype from '#src/util/estype.util.js';
 import isPrimitive from '#src/util/is/primitive.util.js';
 import toBoolean from '#src/util/to/boolean.util.js';
