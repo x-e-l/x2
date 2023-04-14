@@ -22,6 +22,7 @@ describe('function toString', () => {
         ['6,7,8', [6, 7, 8]],
         ['', []],
         ['$ => $', $ => $],
+        ['[object Object]', Object.create(null)],
     ])('returns %p for %p ', (result, value) => expect(toString(value)).toBe(result));
 
 });

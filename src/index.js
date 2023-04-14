@@ -33,7 +33,9 @@ class X extends Function {
         }
 
         super();
-        this[V] = $;
+
+        const isWrapper = $ instanceof Boolean || $ instanceof Number || $ instanceof String;
+        this[V] = isWrapper ? $.valueOf() : $;
 
         return new Proxy(rename$(this), {get: get(X, this), apply}); // eslint-disable-line no-constructor-return
     }

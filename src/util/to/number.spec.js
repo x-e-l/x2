@@ -24,6 +24,7 @@ describe('function toNumber', () => {
         [9e9, '9e9'],
         [NaN, []],
         [NaN, $ => $],
+        [NaN, Object.create(null)],
     ])('returns %p for %p', (result, value) => expect(toNumber(value)).toBe(result));
 
 });

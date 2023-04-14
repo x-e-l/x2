@@ -15,6 +15,7 @@ const VALUES = Object.freeze([
     '3m', 'asdf', Symbol('4'),
     {e: 5}, [6, 7, 8], [], {},
     $ => $,
+    Object.create(null),
 ]);
 
 const MATRIX = Object.freeze(VALUES.map(a => VALUES.flatMap(b => [a, b])));
@@ -32,6 +33,9 @@ describe('function sub', () => {
 
         expect(sub(X(a), b) instanceof X).toBe(true);
         expect(sub(X(a), b)[V]).toBe(expected);
+
+        expect(sub(a, X(b)) instanceof X.constructor).toBe(true);
+        expect(sub(a, X(b))[V]).toBe(expected);
 
         expect(sub(X(a), X(b)) instanceof X).toBe(true);
         expect(sub(X(a), X(b))[V]).toBe(expected);

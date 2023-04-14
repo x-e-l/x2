@@ -26,6 +26,7 @@ describe('function primitive', () => {
             ['6,7,8', [6, 7, 8]],
             ['', []],
             ['$ => $', $ => $],
+            ['[object Object]', Object.create(null)],
         ])('returns %p for %p ', (result, value) => expect(primitive(hint, value)).toBe(result));
     });
 
@@ -48,6 +49,7 @@ describe('function primitive', () => {
             [6, [6, 7, 8]],
             [NaN, []],
             [NaN, $ => $],
+            [NaN, Object.create(null)],
         ])('returns %p for %p', (result, value) => expect(primitive(hint, value)).toBe(result));
 
 
