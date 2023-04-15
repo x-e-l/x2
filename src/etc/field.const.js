@@ -2,8 +2,8 @@
 
 // @see https://www.compart.com/en/unicode/block/U+2200
 
-export const V = String.fromCodePoint(0x2207); // '∇';
-export const P = String.fromCodePoint(0x22C6); // ⋆
+export const V = ''; // String.fromCodePoint(0x2207); // '∇';
+export const P = ''; // String.fromCodePoint(0x22C6); // ⋆
 
 
 export const ES_TYPE = `${P}es.type`;
