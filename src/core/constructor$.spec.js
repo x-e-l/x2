@@ -36,19 +36,19 @@ describe('function constructor$', () => {
     });
 
     it('upgrades the proper constructor', () => {
-        class Y {
+        class Z {
             static X() {// eslint-disable-line no-empty-function
             }
         }
 
-        const y = constructor$(Y);
+        const y = constructor$(Z);
 
-        expect(y).toBe(Y.X);
-        expect(y.constructor).toBe(Y);
-        expect(y.prototype).toBe(Y.prototype);
+        expect(y).toBe(Z.X);
+        expect(y.constructor).toBe(Z);
+        expect(y.prototype).toBe(Z.prototype);
 
         expect(typeof y.instance).toBe('function');
-        expect(y.instance(new Y())).toBe(true);
+        expect(y.instance(new Z())).toBe(true);
 
         try {
             y.frozen = 'this should not be set';

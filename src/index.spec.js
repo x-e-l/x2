@@ -37,17 +37,17 @@ describe('function X', () => {
 
         const object = Object.freeze({});
 
-        class Y extends X.constructor {
+        class Z extends X.constructor {
         }
 
         // noinspection JSPotentiallyInvalidConstructorUsage
         const x = new X.constructor(object);
         // noinspection JSCheckFunctionSignatures
-        const y = new Y(object);
+        const y = new Z(object);
 
         expect(typeof X.constructor).toBe('function');
         expect(typeof x).toBe('function');
-        expect(typeof Y).toBe('function');
+        expect(typeof Z).toBe('function');
         expect(typeof y).toBe('function');
 
         expect(x.es.type).toBe('object');

@@ -32,28 +32,26 @@ describe('function iterator', () => {
         const o1 = Object.freeze({});
 
         const array = [o1, 3, 'four'];
-        const expectedChecks = [true, true, true];
         const expectedEntries = [{i: 0, k: '0', v: o1}, {i: 1, k: '1', v: 3}, {i: 2, k: '2', v: 'four'}];
 
         const actual = iterator(Z, {[V]: array});
         const spread = [...actual];
 
         expect(spread.length).toBe(array.length);
-        expect(spread.map($ => $ instanceof Z)).toStrictEqual(expectedChecks);
+        expect(spread.every($ => $ instanceof Z)).toBe(true);
         expect(spread.map($ => $[V])).toStrictEqual(expectedEntries);
 
     });
 
     it('returns a range iterator for an embedded positive integer', () => {
 
-        const expectedChecks = [true, true, true];
         const expectedEntries = [{i: 0, k: '0', v: 0}, {i: 1, k: '1', v: 1}, {i: 2, k: '2', v: 2}];
 
         const actual = iterator(Z, {[V]: 3});
         const spread = [...actual];
 
-        expect(spread.length).toBe(expectedChecks.length);
-        expect(spread.map($ => $ instanceof Z)).toStrictEqual(expectedChecks);
+        expect(spread.length).toBe(expectedEntries.length);
+        expect(spread.every($ => $ instanceof Z)).toBe(true);
         expect(spread.map($ => $[V])).toStrictEqual(expectedEntries);
 
     });
@@ -61,14 +59,13 @@ describe('function iterator', () => {
     it('returns an entries iterator for an embedded object', () => {
 
         const object = Object.freeze({a: 7, b: 8, c: 9});
-        const expectedChecks = [true, true, true];
         const expectedEntries = [{i: 0, k: 'a', v: 7}, {i: 1, k: 'b', v: 8}, {i: 2, k: 'c', v: 9}];
 
         const actual = iterator(Z, {[V]: object});
         const spread = [...actual];
 
-        expect(spread.length).toBe(expectedChecks.length);
-        expect(spread.map($ => $ instanceof Z)).toStrictEqual(expectedChecks);
+        expect(spread.length).toBe(expectedEntries.length);
+        expect(spread.every($ => $ instanceof Z)).toBe(true);
         expect(spread.map($ => $[V])).toStrictEqual(expectedEntries);
 
     });
