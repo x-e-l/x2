@@ -1,4 +1,4 @@
-import {P} from '#src/etc/field.const.js';
+import {P, V} from '#src/etc/field.const.js';
 
 
 const starts = (fields, key) => fields.some(f => f.startsWith(key));
@@ -38,13 +38,24 @@ const getter = (X, object) => {
             return Reflect.get(t, k, r);
         }
 
-        const key = P + k;
+        const index = Number.parseFloat(k);
+        if (Number.isSafeInteger(index) && 0 <= index) {
+            const array = Reflect.get(t, V, r);
+            if (Array.isArray(array)) {
+                return new X(array[index]);
+            }
+        }
 
-        return (
-            starts(fields, key)
-                ? nav(key)
-                : Reflect.get(t, k, r)
-        );
+        if (fields.includes(k) || k === V) {
+            return Reflect.get(t, k, r);
+        }
+
+        const key = P + k;
+        if (starts(fields, key)) {
+            return nav(key);
+        }
+
+        return new X(Reflect.get(t, k, r));
     };
 
     return get;
