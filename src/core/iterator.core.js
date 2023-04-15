@@ -13,7 +13,7 @@ const iterator = function* iterator(X, $) { // eslint-disable-line max-lines-per
     const value = $?.[V];
     const et = estype(value);
 
-    if (ET.num === et && Number.isSafeInteger(value) && 0 < value) {
+    if (ET.num === et && Number.isSafeInteger(value) && 0 <= value) {
         for (let i = 0; i < value; i += 1) {
             yield new X({k: `${i}`, v: i, i});
         }
