@@ -73,7 +73,7 @@ const getter = (X, object) => {
             }
         }
 
-        return t instanceof X ? t : new X();
+        return new X(Reflect.get(t, V, r)?.[k]);
     };
 
     return get;

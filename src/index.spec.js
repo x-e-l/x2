@@ -4,6 +4,7 @@
 
 import {describe, expect, it} from '@jest/globals';
 import X from './index.js';
+import {V} from '#src/etc/field.const.js';
 
 
 // eslint-disable-next-line max-lines-per-function
@@ -60,5 +61,20 @@ describe('function X', () => {
         expect(y.es.value.message).toBe('X is not sub-class-able');
     });
 
+    describe('creates instance(s) that', () => {
+        it('can be used as a key/index', () => {
+            const a = [1, 2, 3];
+            const o = {a: 1, b: 2};
+
+            const k = X('b');
+            const i = X(1);
+
+            const xo = X(o);
+            const xa = X(a);
+
+            expect(xa[i][V]).toBe(a[1]);
+            expect(xo[k][V]).toBe(o.b);
+        });
+    });
 
 });
