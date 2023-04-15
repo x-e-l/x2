@@ -1,4 +1,4 @@
-const toBoolean = value => !!(value);
+const toBoolean = value => !!value;
 
 
 // noinspection JSUnusedGlobalSymbols
