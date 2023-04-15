@@ -1,21 +1,28 @@
 import ET from '#src/etc/et.const.js';
-import {ES_TYPE, V} from '#src/etc/field.const.js';
-import X from '#src/index.js';
+import {V} from '#src/etc/field.const.js';
+import estype from '#src/util/estype.util.js';
 
 
-const apply = (target, that, args) => {
+const apply = X => (target, that, args) => {
+    try {
 
-    if (!X.instance(target)) {
-        // eslint-disable-next-line new-cap
-        return X(Reflect.apply(target, that, args));
+        if (!(target instanceof X)) {
+            // eslint-disable-next-line new-cap
+            return new X(Reflect.apply(target, that, args));
+        }
+
+        const value = target[V];
+        if (ET.fun === estype(value)) {
+            // eslint-disable-next-line no-use-before-define,new-cap
+            return new X(value.apply(that, args));
+        }
+
+        return target;
+
+    } catch (e) {
+        return new X(e);
     }
 
-    if (ET.fun === (target[ES_TYPE])) {
-        // eslint-disable-next-line no-use-before-define,new-cap
-        return X(target[V].apply(that, args));
-    }
-
-    return target;
 };
 
 
