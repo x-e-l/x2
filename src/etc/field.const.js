@@ -18,6 +18,7 @@ export const IS_F_ERROR = `${P}is.f.error`;
 export const IS_T_PRIMITIVE = `${P}is.t.primitive`;
 export const IS_F_PRIMITIVE = `${P}is.f.primitive`;
 
+export const TO_LEN = `${P}to.len`;
 
 export const TO_BUL = `${P}to.bul`;
 export const TO_NUM = `${P}to.num`;

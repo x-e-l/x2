@@ -9,6 +9,7 @@ import {
     IS_T_ERROR,
     IS_T_PRIMITIVE,
     TO_BUL,
+    TO_LEN,
     TO_NUM,
     TO_STR,
     V,
@@ -25,36 +26,41 @@ const {isArray} = Array;
 
 
 // eslint-disable-next-line max-lines-per-function
-const prototype$ = X => Object.defineProperties(X.prototype, {
-    // @formatter:off
+const prototype$ = X => {
+    const properties = {
+        // @formatter:off
 
-    [ES_TYPE]:  {get() { return estype(this[V]); }},
-    [ES_VALUE]: {get() { return this[V]; }},
-
-
-    [IS_T_ARRAY]: {get() { return isArray(this[V]); }},
-    [IS_F_ARRAY]: {get() { return !isArray(this[V]); }},
-
-    [IS_T_ERROR]: {get() { return this[V] instanceof Error; }},
-    [IS_F_ERROR]: {get() { return !(this[V] instanceof Error); }},
-
-    [IS_T_PRIMITIVE]: {get() { return isPrimitive(this[V]); }},
-    [IS_F_PRIMITIVE]: {get() { return !isPrimitive(this[V]); }},
+        [ES_TYPE]:  {get() { return estype(this[V]); }},
+        [ES_VALUE]: {get() { return this[V]; }},
 
 
-    [TO_BUL]: {get() { return toBoolean(this[V]); }},
-    [TO_NUM]: {get() { return toNumber(this[V]); }},
-    [TO_STR]: {get() { return toString(this[V]); }},
+        [IS_T_ARRAY]: {get() { return isArray(this[V]); }},
+        [IS_F_ARRAY]: {get() { return !isArray(this[V]); }},
 
+        [IS_T_ERROR]: {get() { return this[V] instanceof Error; }},
+        [IS_F_ERROR]: {get() { return !(this[V] instanceof Error); }},
 
-    toString: {value() { return toString(this[V]); }},
+        [IS_T_PRIMITIVE]: {get() { return isPrimitive(this[V]); }},
+        [IS_F_PRIMITIVE]: {get() { return !isPrimitive(this[V]); }},
 
+        [TO_LEN]: {get() { return new X(this[V]?.length); }},
 
-    [Symbol.iterator]: {* value() { yield* iterator(X, this); }},
-    [Symbol.toPrimitive]: {value(hint) { return toPrimitive(hint, this[V]); }},
+        [TO_BUL]: {get() { return new X(toBoolean(this[V])); }},
+        [TO_NUM]: {get() { return new X(toNumber(this[V])); }},
+        [TO_STR]: {get() { return new X(toString(this[V])); }},
+        
 
-    // @formatter:off
-});
+        toString: {value() { return toString(this[V]); }},
+
+        [Symbol.iterator]: {* value() { yield* iterator(X, this); }},
+        [Symbol.toPrimitive]: {value(hint) { return toPrimitive(hint, this[V]); }},
+
+        // @formatter:off
+    };
+
+    Object.defineProperties(X?.prototype??{}, properties);
+    return properties;
+};
 
 // noinspection JSUnusedGlobalSymbols
 export default prototype$;

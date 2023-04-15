@@ -6,6 +6,7 @@ import {describe, expect, it} from '@jest/globals';
 import X from './index.js';
 
 
+// eslint-disable-next-line max-lines-per-function
 describe('function X', () => {
 
     describe.each([

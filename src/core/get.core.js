@@ -1,12 +1,15 @@
+import prototype$ from '#src/core/prototype$.core.js';
 import {P, V} from '#src/etc/field.const.js';
+import KNOWN from '#src/etc/known.const.js';
 
 
-const starts = (fields, key) => fields.some(f => f.startsWith(key));
+const FIELDS = Object.keys(prototype$());
+
+
+const mightInclude = (fields, key) => fields.some(f => f.startsWith(key));
 
 // eslint-disable-next-line max-lines-per-function
 const getter = (X, object) => {
-
-    const fields = Object.getOwnPropertyNames(X.prototype).filter(s => s.startsWith(P));
 
     const nav = prefix => {
         const none = new X();
@@ -18,11 +21,11 @@ const getter = (X, object) => {
                 }
 
                 const key = `${prefix}.${k}`;
-                if (fields.includes(key)) {
+                if (FIELDS.includes(key)) {
                     return object[key];
                 }
 
-                if (starts(fields, key)) {
+                if (mightInclude(FIELDS, key)) {
                     return nav(key);
                 }
 
@@ -31,31 +34,46 @@ const getter = (X, object) => {
         });
     };
 
-    // noinspection UnnecessaryLocalVariableJS
-    const get = (t, k, r) => {
+    const get = (t, k, r) => { // eslint-disable-line max-lines-per-function
 
-        if ('symbol' === typeof k) {
+        if (k instanceof X) {
+            return get(t, k[V], r);
+        }
+
+        if (k === V) {
             return Reflect.get(t, k, r);
         }
 
-        const index = Number.parseFloat(k);
-        if (Number.isSafeInteger(index) && 0 <= index) {
-            const array = Reflect.get(t, V, r);
-            if (Array.isArray(array)) {
-                return new X(array[index]);
+        if (KNOWN.includes(k)) {
+            return Reflect.get(t, k, r);
+        }
+
+        // if still a symbol, just skip to the end
+        if ('symbol' !== typeof k) {
+
+            const index = Number.parseFloat(k);
+            if (Number.isSafeInteger(index) && 0 <= index) {
+                const array = Reflect.get(t, V, r);
+                if (Array.isArray(array)) {
+                    return new X(array[index]);
+                }
+            }
+
+            if (FIELDS.includes(k)) {
+                return Reflect.get(t, k, r);
+            }
+
+            const key = P + k;
+            if (FIELDS.includes(key)) {
+                return Reflect.get(t, key, r);
+            }
+
+            if (mightInclude(FIELDS, key)) {
+                return nav(key);
             }
         }
 
-        if (fields.includes(k) || k === V) {
-            return Reflect.get(t, k, r);
-        }
-
-        const key = P + k;
-        if (starts(fields, key)) {
-            return nav(key);
-        }
-
-        return new X(Reflect.get(t, k, r));
+        return t instanceof X ? t : new X();
     };
 
     return get;
