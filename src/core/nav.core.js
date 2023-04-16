@@ -33,8 +33,8 @@ const nav = options => {
             if (allowed.includes(path)) {
                 return object[path];
             }
-
-            if (allowed.some(by(path))) {
+ 
+            if (path !== prefix && allowed.some(by(path))) {
                 return nav({...conf, prefix: path});
             }
 

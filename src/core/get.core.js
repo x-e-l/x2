@@ -10,22 +10,30 @@ const FIELDS = Object.keys(prototype$());
 // eslint-disable-next-line max-lines-per-function
 const getter = X => {
 
+    // noinspection UnnecessaryLocalVariableJS
     const get = (t, k, r) => { // eslint-disable-line max-lines-per-function
+        try {
 
-        if (k instanceof X) {
-            return get(t, k[V], r);
-        }
+            while (k instanceof X) {
+                k = k[V];
+            }
 
-        if (k === V) {
-            return Reflect.get(t, k, r);
-        }
+            if (k === V || 'symbol' === typeof k || KNOWN.includes(k)) {
+                return Reflect.get(t, k, r);
+            }
 
-        if (KNOWN.includes(k)) {
-            return Reflect.get(t, k, r);
-        }
+            if (FIELDS.includes(k)) {
+                return Reflect.get(t, k, r);
+            }
 
-        // if still a symbol, just skip to the end
-        if ('symbol' !== typeof k) {
+            const prefix = P + k;
+            if (FIELDS.includes(prefix)) {
+                return Reflect.get(t, prefix, r);
+            }
+
+            if (FIELDS.some($ => $.startsWith(prefix))) {
+                return nav({X, object: t, prefix, allowed: FIELDS});
+            }
 
             const index = Number.parseFloat(k);
             if (Number.isSafeInteger(index) && 0 <= index) {
@@ -35,22 +43,12 @@ const getter = X => {
                 }
             }
 
-            if (FIELDS.includes(k)) {
-                return Reflect.get(t, k, r);
-            }
+            return new X(
+                t instanceof X
+                    ? Reflect.get(t, V, r)?.[k]
+                    : Reflect.get(t, k, r),
+            );
 
-            const key = P + k;
-            if (FIELDS.includes(key)) {
-                return Reflect.get(t, key, r);
-            }
-
-            if (FIELDS.some($ => $.startsWith(key))) {
-                return nav({X, object: t, prefix: key, allowed: FIELDS});
-            }
-        }
-
-        try {
-            return new X(Reflect.get(t, V, r)?.[k]);
         } catch (e) {
             return new X(e);
         }

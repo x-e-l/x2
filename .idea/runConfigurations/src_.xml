@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="src/" type="JavaScriptTestRunnerJest">
+    <node-interpreter value="project" />
+    <node-options value="--experimental-vm-modules" />
+    <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+    <working-dir value="$PROJECT_DIR$" />
+    <jest-options value="--watch" />
+    <envs />
+    <scope-kind value="DIRECTORY" />
+    <test-directory value="$PROJECT_DIR$/src" />
+    <method v="2" />
+  </configuration>
+</component>
