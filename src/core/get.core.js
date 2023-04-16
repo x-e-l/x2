@@ -1,6 +1,6 @@
 import nav from '#src/core/nav.core.js';
 import prototype$ from '#src/core/prototype$.core.js';
-import {P, V} from '#src/etc/field.const.js';
+import {V} from '#src/etc/field.const.js';
 import KNOWN from '#src/etc/known.const.js';
 
 
@@ -18,21 +18,12 @@ const getter = X => {
                 k = k[V];
             }
 
-            if (k === V || 'symbol' === typeof k || KNOWN.includes(k)) {
+            if (k === V || 'symbol' === typeof k || KNOWN.includes(k) || FIELDS.includes(k)) {
                 return Reflect.get(t, k, r);
             }
 
-            if (FIELDS.includes(k)) {
-                return Reflect.get(t, k, r);
-            }
-
-            const prefix = P + k;
-            if (FIELDS.includes(prefix)) {
-                return Reflect.get(t, prefix, r);
-            }
-
-            if (FIELDS.some($ => $.startsWith(prefix))) {
-                return nav({X, object: t, prefix, allowed: FIELDS});
+            if (FIELDS.some($ => $.startsWith(k))) {
+                return nav({X, object: t, prefix: k, allowed: FIELDS});
             }
 
             const index = Number.parseFloat(k);

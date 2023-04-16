@@ -24,16 +24,16 @@ const nav = options => {
     return new Proxy(conf.placeholder, {
         get: (_, key) => {
 
+            // TODO: maybe remove this restriction, use an array instead of string for path
             if ('symbol' === typeof key) {
                 return new X({...conf, reason: S, key});
             }
 
             const path = join(prefix, key);
-
             if (allowed.includes(path)) {
                 return object[path];
             }
- 
+
             if (path !== prefix && allowed.some(by(path))) {
                 return nav({...conf, prefix: path});
             }

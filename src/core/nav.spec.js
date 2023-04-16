@@ -14,9 +14,6 @@ function Z($) {
 }
 
 
-// console.log(JSON.stringify(A));
-// {"":{"a":1,"$b":2,"_c":{"":{"d":{"":{"y":9}}}}}}
-
 describe('function nav', () => {
 
     it('returns an error for not providing proper constructor', () => {

@@ -3,7 +3,7 @@
 
 import {describe, expect, it} from '@jest/globals';
 import get from './get.core.js';
-import {V} from '#src/etc/field.const.js';
+import {P, TO_STR, V} from '#src/etc/field.const.js';
 
 
 describe('function get', () => {
@@ -73,8 +73,10 @@ describe('function get', () => {
 
         it('for a navigation key', () => {
 
-            // the allowed fields for navigation are "hardcoded", so 'to.str' is, but '$c.d.e' isn't
-            const k2 = 'to.str';
+            // the allowed fields for navigation are "hardcoded",
+            // so TO_STR will pass, but '$c.d.e' wont
+
+            const k2 = TO_STR;
             const v2 = Object.freeze({v: 2});
 
             const k3 = '$c.d.e';
@@ -87,8 +89,8 @@ describe('function get', () => {
             expect(typeof getter).toBe('function');
             expect(getter(o, k3)[V]).toBe(v3);
 
-            expect(getter(o, 'to')).toBeInstanceOf(Z);
-            expect(getter(o, 'to').str).toBe(v2);
+            expect(getter(o, P)).toBeInstanceOf(Z);
+            expect(getter(o, P).to.str).toBe(v2);
 
         });
 
