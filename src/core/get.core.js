@@ -1,3 +1,4 @@
+import nav from '#src/core/nav.core.js';
 import prototype$ from '#src/core/prototype$.core.js';
 import {P, V} from '#src/etc/field.const.js';
 import KNOWN from '#src/etc/known.const.js';
@@ -6,33 +7,8 @@ import KNOWN from '#src/etc/known.const.js';
 const FIELDS = Object.keys(prototype$());
 
 
-const mightInclude = (fields, key) => fields.some(f => f.startsWith(key));
-
 // eslint-disable-next-line max-lines-per-function
-const getter = (X, object) => {
-
-    const nav = prefix => {
-        const none = new X();
-
-        return new Proxy(none, {
-            get: (_, k) => {
-                if ('symbol' === typeof k) {
-                    return none;
-                }
-
-                const key = `${prefix}.${k}`;
-                if (FIELDS.includes(key)) {
-                    return object[key];
-                }
-
-                if (mightInclude(FIELDS, key)) {
-                    return nav(key);
-                }
-
-                return none;
-            },
-        });
-    };
+const getter = X => {
 
     const get = (t, k, r) => { // eslint-disable-line max-lines-per-function
 
@@ -68,12 +44,16 @@ const getter = (X, object) => {
                 return Reflect.get(t, key, r);
             }
 
-            if (mightInclude(FIELDS, key)) {
-                return nav(key);
+            if (FIELDS.some($ => $.startsWith(key))) {
+                return nav({X, object: t, prefix: key, allowed: FIELDS});
             }
         }
 
-        return new X(Reflect.get(t, V, r)?.[k]);
+        try {
+            return new X(Reflect.get(t, V, r)?.[k]);
+        } catch (e) {
+            return new X(e);
+        }
     };
 
     return get;
