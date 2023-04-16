@@ -15,24 +15,8 @@ describe('function constructor$', () => {
         Object.create(null),
         $ => $,
         {X: $ => $},
-    ])('does not fail for %p, but returns dummy result', value => {
-        const X = constructor$(value);
-
-        expect(typeof X).toBe('function');
-        expect(typeof X.instance).toBe('function');
-
-        expect(typeof X.constructor).toBe('function');
-        expect(typeof X.prototype).toBe('object');
-        expect(X.prototype).not.toBe(null);
-
-        const x = X();
-
-        expect(x).toBeTruthy();
-        expect(X()).toBe(x);
-
-        expect(x instanceof X.constructor).toBe(true);
-        expect(X.instance(x)).toBe(true);
-        expect(X.prototype).toBeTruthy();
+    ])('does throw for %p', value => {
+        expect(() => constructor$(value)).toThrow(TypeError);
     });
 
     it('upgrades the proper constructor', () => {
@@ -47,9 +31,6 @@ describe('function constructor$', () => {
         expect(y.constructor).toBe(Z);
         expect(y.prototype).toBe(Z.prototype);
 
-        expect(typeof y.instance).toBe('function');
-        expect(y.instance(new Z())).toBe(true);
-
         try {
             y.frozen = 'this should not be set';
         } catch {
@@ -59,6 +40,4 @@ describe('function constructor$', () => {
         }
 
     });
-
-
 });

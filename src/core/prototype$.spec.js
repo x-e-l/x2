@@ -59,7 +59,6 @@ describe('function prototype$', () => {
             this[V] = $;
         }
 
-        Z.instance = $ => $ instanceof Z;
         prototype$(Z);
 
         it('array', () => {

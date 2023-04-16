@@ -15,8 +15,6 @@ describe('function apply', () => {
             this[V] = $;
         }
 
-        Z.instance = () => false;
-
         const bound = apply(Z);
         expect(typeof bound).toBe('function');
 
@@ -40,8 +38,6 @@ describe('function apply', () => {
         function Z($) {
             this[V] = $;
         }
-
-        Z.instance = $ => $ instanceof Z;
 
         const bound = apply(Z);
         expect(typeof bound).toBe('function');
@@ -73,8 +69,6 @@ describe('function apply', () => {
         function Z($) {
             this[V] = $;
         }
-
-        Z.instance = $ => $ instanceof Z;
 
         const bound = apply(Z);
         expect(typeof bound).toBe('function');
