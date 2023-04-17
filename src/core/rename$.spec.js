@@ -35,6 +35,7 @@ describe('function rename$', () => {
         ['(fun)', $ => $],
         //
         ['"abs"', Math.abs],
+        ['"String"', String],
         //
     ])('returns object with name: %p for value: %p', (result, value) => {
 

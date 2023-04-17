@@ -33,7 +33,7 @@ const rename$ = (
                 : (
                     Array.isArray(v)
                         ? TAG.array
-                        : TAG[et] ?? et
+                        : TAG[et]
                 )
         );
 
