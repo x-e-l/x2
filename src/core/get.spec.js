@@ -71,6 +71,20 @@ describe('function get', () => {
 
         });
 
+        it('for an index key', () => {
+
+            const val = Object.freeze({value: true});
+            const o = Object.freeze({1: val});
+            const a = Object.freeze([0, 1, val, 3]);
+
+            const g = get(Z);
+
+            expect(typeof g).toBe('function');
+            expect(g(o, 1)[V]).toBe(val);
+            expect(g(a, 2)[V]).toBe(val);
+
+        });
+
         it('for a navigation key', () => {
 
             // the allowed fields for navigation are "hardcoded",
