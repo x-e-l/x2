@@ -28,7 +28,7 @@ describe('function nav', () => {
 
             expect(p instanceof Z).toBe(true);
             expect(p.test instanceof Z).toBe(true);
-            expect(p.test[V].reason).toEqual('Not found due to missing property');
+            expect(p.test[V].reason).toEqual('Not found');
         });
 
         it('that has no allowed props', () => {
@@ -37,16 +37,18 @@ describe('function nav', () => {
             const p = nav({X: Z, object});
 
             expect(p instanceof Z).toBe(true);
-            expect(p.$c[V].reason).toEqual('Not found due to missing property');
+            expect(p.$c[V].reason).toEqual('Not found');
         });
 
-        it('that has a symbol key', () => {
+        it('that has no value for the key', () => {
 
-            const key = Symbol('key');
+            const k1 = Symbol('key');
+            const k2 = 'key';
             const p = nav({X: Z});
 
             expect(p instanceof Z).toBe(true);
-            expect(p[key][V].reason).toEqual('Not found due to Symbol key');
+            expect(p[k1][V].reason).toEqual('Not found');
+            expect(p[k2][V].reason).toEqual('Not found');
         });
 
     });

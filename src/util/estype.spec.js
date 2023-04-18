@@ -6,7 +6,7 @@ describe('function estype', () => {
 
 
     it.each([
-        // result, hint, value
+        // result, value
         ['null', null],
         ['undefined', void 1],
         ['boolean', true],
@@ -18,7 +18,7 @@ describe('function estype', () => {
         ['object', []],
         ['function', $ => $],
         ['object', globalThis],
-    ])('returns %p for %p, %p', expect(estype).toMapExact);
+    ])('returns %p for %p', expect(estype).toMapExact);
 
 
 });

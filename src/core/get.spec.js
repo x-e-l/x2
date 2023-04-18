@@ -4,6 +4,7 @@
 import {describe, expect, it} from '@jest/globals';
 import get from './get.core.js';
 import {P, TO_STR, V} from '#src/etc/field.const.js';
+import X from '#src/index.js';
 
 
 describe('function get', () => {
@@ -105,6 +106,17 @@ describe('function get', () => {
 
             expect(getter(o, P)).toBeInstanceOf(Z);
             expect(getter(o, P).to.str).toBe(v2);
+
+        });
+
+        it('for the usual Function relics', () => {
+
+            const x = X();
+            const keys = Object.getOwnPropertyNames($ => $);
+
+            for (const key of keys) {
+                expect(x[key]).toBe(x[X(key)]);
+            }
 
         });
 

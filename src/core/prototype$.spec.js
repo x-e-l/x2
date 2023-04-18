@@ -18,6 +18,8 @@ const K = Object.freeze(
         'is.f.error',
         'is.t.primitive',
         'is.f.primitive',
+        'is.t.promise',
+        'is.f.promise',
         'to.len',
         'to.bul',
         'to.num',

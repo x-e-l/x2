@@ -1,5 +1,8 @@
-const M = 'Not found due to missing property';
-const S = 'Not found due to Symbol key';
+import ET from '#src/etc/et.const.js';
+import estype from '#src/util/estype.util.js';
+
+
+const M = 'Not found';
 
 
 const join = (prefix, key) => [prefix, key].filter($ => $).join('.');
@@ -23,15 +26,18 @@ const nav = options => {
 
     return new Proxy(conf.placeholder, {
         get: (_, key) => {
-
-            // TODO: maybe remove this restriction, use an array instead of string for path
+ 
             if ('symbol' === typeof key) {
-                return new X({...conf, reason: S, key});
+                return (
+                    ET.obj === estype(object) && Reflect.has(object, key)
+                        ? object[key]
+                        : new X({...conf, reason: M, key})
+                );
             }
 
             const path = join(prefix, key);
             if (allowed.includes(path)) {
-                return object[path];
+                return object?.[path];
             }
 
             if (path !== prefix && allowed.some(by(path))) {

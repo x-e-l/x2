@@ -20,7 +20,7 @@ describe('function toNumber', () => {
         [3, '3m'],
         [NaN, Symbol('4')],
         [NaN, {e: 5}],
-        [6, [6, 7, 8]],
+        [NaN, [6, 7, 8]],
         [9e9, '9e9'],
         [NaN, []],
         [NaN, $ => $],

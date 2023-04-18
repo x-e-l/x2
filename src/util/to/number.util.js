@@ -15,6 +15,10 @@ const toNumber = value => {
         return value;
     }
 
+    if (Array.isArray(value)) {
+        return NaN;
+    }
+
     try {
         return Number.parseFloat(value);
     } catch (e) {

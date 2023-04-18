@@ -1,4 +1,4 @@
-/* eslint-disable new-cap,no-magic-numbers */
+/* eslint-disable new-cap,no-magic-numbers,no-shadow */
 // noinspection SpellCheckingInspection
 
 
@@ -61,20 +61,36 @@ describe('function X', () => {
         expect(y[P].es.value.message).toBe('X is not sub-class-able');
     });
 
-    describe('creates instance(s) that', () => {
-        it('can be used as a key/index', () => {
-            const a = [1, 2, 3];
-            const o = {a: 1, b: 2};
+    it('creates instance(s) that can be used as a key/index', () => {
+        const a = [1, 2, 3];
+        const o = {a: 1, b: 2};
 
-            const k = X('b');
-            const i = X(1);
+        const k = X('b');
+        const i = X(1);
 
-            const xo = X(o);
-            const xa = X(a);
+        const xo = X(o);
+        const xa = X(a);
 
-            expect(xa[i][V]).toBe(a[1]);
-            expect(xo[k][V]).toBe(o.b);
-        });
+        expect(xa[i][V]).toBe(a[1]);
+        expect(xo[k][V]).toBe(o.b);
+    });
+
+
+    describe('returns the expected Function relics', () => {
+
+        // 'length', 'name', 'arguments', 'caller', 'prototype', ''
+
+        const x = X();
+        const keys = Object.getOwnPropertyNames($ => $);
+
+        for (const key of keys) {
+
+            const regular = x[key];
+            const wrapped = x[X(key)];
+
+            expect(regular).toBe(wrapped);
+        }
+
     });
 
 });

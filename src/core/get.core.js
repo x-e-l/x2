@@ -34,11 +34,26 @@ const getter = X => {
                 }
             }
 
-            return new X(
-                t instanceof X
-                    ? Reflect.get(t, V, r)?.[k]
-                    : Reflect.get(t, k, r),
-            );
+            if (t instanceof X) {
+                // @see https://262.ecma-international.org/8.0/#sec-proxy-object-internal-methods-and-internal-slots-get-p-receiver
+                const pd = Reflect.getOwnPropertyDescriptor(t, k);
+
+                // 10a
+                if (pd && false === pd.writable && false === pd.configurable) {
+                    return Reflect.get(t, k, r);
+                }
+
+                // 10b
+                if (pd && void 1 === pd.get && false === pd.configurable) {
+                    return void 1;
+                }
+
+                return new X(Reflect.get(t, V, r)?.[k]);
+
+            }
+
+            return new X(Reflect.get(t, k, r));
+
 
         } catch (e) {
             return new X(e);

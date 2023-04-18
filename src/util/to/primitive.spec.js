@@ -46,7 +46,7 @@ describe('function primitive', () => {
             [3, '3m'],
             [NaN, Symbol('4')],
             [NaN, {e: 5}],
-            [6, [6, 7, 8]],
+            [NaN, [6, 7, 8]],
             [NaN, []],
             [NaN, $ => $],
             [NaN, Object.create(null)],

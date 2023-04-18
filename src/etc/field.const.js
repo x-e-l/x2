@@ -20,6 +20,9 @@ export const IS_F_ERROR = `${PS}is.f.error`;
 export const IS_T_PRIMITIVE = `${PS}is.t.primitive`;
 export const IS_F_PRIMITIVE = `${PS}is.f.primitive`;
 
+export const IS_T_PROMISE = `${PS}is.t.promise`;
+export const IS_F_PROMISE = `${PS}is.f.promise`;
+
 export const TO_LEN = `${PS}to.len`;
 
 export const TO_BUL = `${PS}to.bul`;
