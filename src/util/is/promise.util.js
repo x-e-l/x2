@@ -1,7 +1,4 @@
-const isPromise = $ => {
-    console.log($ instanceof Promise);
-    return false;
-};
+const isPromise = $ => $ instanceof Promise;
 
 
 export default isPromise;
