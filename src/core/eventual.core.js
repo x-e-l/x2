@@ -13,19 +13,19 @@ class Eventual extends Promise {
     }
 
     static all(iterable) {
-        return new Eventual(Promise.all(iterable));
+        return new Eventual(() => Promise.all(iterable));
     }
 
     static allSettled(iterable) {
-        return new Eventual(Promise.allSettled(iterable));
+        return new Eventual(() => Promise.allSettled(iterable));
     }
 
     static any(iterable) {
-        return new Eventual(Promise.any(iterable));
+        return new Eventual(() => Promise.any(iterable));
     }
 
     static race(iterable) {
-        return new Eventual(Promise.race(iterable));
+        return new Eventual(() => Promise.race(iterable));
     }
 
     static resolve(value) {

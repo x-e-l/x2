@@ -2,13 +2,16 @@
 // noinspection JSCheckFunctionSignatures
 
 import {describe, expect, it} from '@jest/globals';
+import Eventual from '#src/core/eventual.core.js';
 import {
     IS_F_ARRAY,
     IS_F_ERROR,
     IS_F_PRIMITIVE,
+    IS_F_PROMISE,
     IS_T_ARRAY,
     IS_T_ERROR,
     IS_T_PRIMITIVE,
+    IS_T_PROMISE,
     P,
     V,
 } from '#src/etc/field.const.js';
@@ -174,6 +177,62 @@ describe('function X.prototype', () => {
         expect(x[V]).toBe(value);
         expect(x[IS_F_PRIMITIVE]).toBe(result);
         expect(x[P].is.f.primitive).toBe(result);
+
+    });
+
+    it.each([
+        // result, value
+        [false, null],
+        [false, void 1],
+        [false, false],
+        [false, true],
+        [false, ''],
+        [false, 'asdf'],
+        [false, 3],
+        [false, 9999999999999999999n],
+        [false, Symbol('s')],
+        [false, $ => $],
+        [false, Object.create(null)],
+        [false, []],
+        [false, [1, 2, 3]],
+        [false, new Error()],
+        [true, Eventual.resolve()],
+        //
+    ])('[IS_T_PROMISE] returns %p for %p', (result, value) => {
+
+        const x = X(value);
+
+        expect(x[V]).toBe(value);
+        expect(x[IS_T_PROMISE]).toBe(result);
+        expect(x[P].is.t.promise).toBe(result);
+
+    });
+
+    it.each([
+        // result, value
+        [true, null],
+        [true, void 1],
+        [true, false],
+        [true, true],
+        [true, ''],
+        [true, 'asdf'],
+        [true, 3],
+        [true, 9999999999999999999n],
+        [true, Symbol('s')],
+        [true, $ => $],
+        [true, Object.create(null)],
+        [true, []],
+        [true, [1, 2, 3]],
+        [true, new Error()],
+        [false, Eventual.resolve()],
+        //
+    ])('[IS_F_PROMISE] returns %p for %p', (result, value) => {
+
+        const x = X(value);
+
+        expect(x[V]).toBe(value);
+        expect(x[IS_F_PROMISE]).toBe(result);
+        expect(x[P].is.f.promise).toBe(result);
 
     });
 
