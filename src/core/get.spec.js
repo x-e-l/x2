@@ -120,6 +120,26 @@ describe('function get', () => {
 
         });
 
+        it('for extra descriptors', () => {
+
+            const a = 'a';
+            const b = 'b';
+
+            const x = new Z();
+            const getter = get(Z);
+
+            const g = void 1;
+            const s = $ => $;
+            const value = Object.freeze({});
+
+            Object.defineProperty(x, a, {configurable: false, set: s, get: g});
+            Object.defineProperty(x, b, {configurable: false, value});
+
+            expect(getter(x, a)).toBe(void 1);
+            expect(getter(x, b)).toBe(x[X(b)]);
+
+        });
+
     });
 
 });
