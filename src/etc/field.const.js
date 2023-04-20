@@ -24,6 +24,7 @@ export const IS_T_PROMISE = `${PS}is.t.promise`;
 export const IS_F_PROMISE = `${PS}is.f.promise`;
 
 export const TO_LEN = `${PS}to.len`;
+export const TO_ITE = `${PS}to.ite`;
 
 export const TO_BUL = `${PS}to.bul`;
 export const TO_NUM = `${PS}to.num`;

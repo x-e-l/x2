@@ -13,27 +13,31 @@ class Eventual extends Promise {
     }
 
     static all(iterable) {
-        return new Eventual(() => Promise.all(iterable));
+        return Eventual.#wait('all', iterable);
     }
 
     static allSettled(iterable) {
-        return new Eventual(() => Promise.allSettled(iterable));
+        return Eventual.#wait('allSettled', iterable);
     }
 
     static any(iterable) {
-        return new Eventual(() => Promise.any(iterable));
+        return Eventual.#wait('any', iterable);
     }
 
     static race(iterable) {
-        return new Eventual(() => Promise.race(iterable));
+        return Eventual.#wait('race', iterable);
     }
 
     static resolve(value) {
-        return new Eventual(resolve => resolve(value));
+        return new Eventual(s => s(value));
     }
 
     static reject(reason) {
-        return new Eventual((resolve, reject) => reject(reason));
+        return new Eventual((_, j) => j(reason));
+    }
+
+    static #wait(kind, iterable) {
+        return new Eventual((s, j) => Promise[kind](iterable).then(s).catch(j));
     }
 
     then(onFulfilled, onRejected) {
@@ -52,6 +56,7 @@ class Eventual extends Promise {
         this.#promise ??= new Promise(this.#executor);
         return this.#promise;
     }
+
 
 }
 
