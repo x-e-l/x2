@@ -103,8 +103,6 @@ describe('function get', () => {
 
             expect(typeof getter).toBe('function');
             expect(getter(o, k3)[V]).toBe(v3);
-
-            expect(getter(o, P)).toBeInstanceOf(Z);
             expect(getter(o, P).to.str).toBe(v2);
 
         });

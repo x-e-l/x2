@@ -20,6 +20,7 @@ const K = Object.freeze(
         'is.f.primitive',
         'is.t.promise',
         'is.f.promise',
+        'to.ite',
         'to.len',
         'to.bul',
         'to.num',

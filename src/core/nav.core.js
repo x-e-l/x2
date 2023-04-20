@@ -1,37 +1,25 @@
 import ET from '#src/etc/et.const.js';
+import {_NOT_FOUND_} from '#src/etc/value.const.js';
 import estype from '#src/util/estype.util.js';
-
-
-const M = 'Not found';
+import identity from '#src/util/fn/identity.util.js';
 
 
 const join = (prefix, key) => [prefix, key].filter($ => $).join('.');
 const by = path => $ => $.startsWith(path);
 
+const nav = $ => {
 
-const nav = options => {
+    const {object, prefix} = $ ?? {};
+    const allowed = $?.allowed ?? [];
 
-    options ??= {};
-
-    const {X, object, prefix} = options;
-    const allowed = options.allowed ?? [];
-    const conf = {...options, allowed};
-
-    try {
-        conf.placeholder = new X({...conf});
-        conf.nav = nav;
-    } catch (e) {
-        return e;
-    }
-
-    return new Proxy(conf.placeholder, {
+    return new Proxy(identity, {
         get: (_, key) => {
- 
-            if ('symbol' === typeof key) {
+
+            if (ET.sym === estype(key)) {
                 return (
                     ET.obj === estype(object) && Reflect.has(object, key)
                         ? object[key]
-                        : new X({...conf, reason: M, key})
+                        : _NOT_FOUND_
                 );
             }
 
@@ -41,10 +29,10 @@ const nav = options => {
             }
 
             if (path !== prefix && allowed.some(by(path))) {
-                return nav({...conf, prefix: path});
+                return nav({object, allowed, prefix: path});
             }
 
-            return new X({...conf, reason: M, key});
+            return _NOT_FOUND_;
         },
     });
 };

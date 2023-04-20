@@ -23,7 +23,7 @@ const getter = X => {
             }
 
             if (FIELDS.some($ => $.startsWith(k))) {
-                return nav({X, object: t, prefix: k, allowed: FIELDS});
+                return nav({object: t, prefix: k, allowed: FIELDS});
             }
 
             const index = Number.parseFloat(k);

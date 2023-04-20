@@ -11,6 +11,7 @@ import {
     IS_T_PRIMITIVE,
     IS_T_PROMISE,
     TO_BUL,
+    TO_ITE,
     TO_LEN,
     TO_NUM,
     TO_STR,
@@ -49,6 +50,7 @@ const prototype$ = X => {
         [IS_T_PROMISE]: {get() { return isPromise(this[V]); }},
         [IS_F_PROMISE]: {get() { return !isPromise(this[V]); }},
 
+        [TO_ITE]: {get() { return iterator(X, this); }},
         [TO_LEN]: {get() { return new X(this[V]?.length); }},
 
         [TO_BUL]: {get() { return new X(toBoolean(this[V])); }},

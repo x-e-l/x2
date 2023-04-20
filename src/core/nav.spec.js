@@ -3,56 +3,39 @@
 
 import {describe, expect, it} from '@jest/globals';
 import nav from './nav.core.js';
-import {V} from '#src/etc/field.const.js';
-
-// eslint-disable-next-line func-style,no-restricted-syntax
-function Z($) {
-    if (new.target !== Z) {
-        return new Z($);
-    }
-    this[V] = $;
-}
+import {_NOT_FOUND_} from '#src/etc/value.const.js';
 
 
 describe('function nav', () => {
 
-    it('returns an error for not providing proper constructor', () => {
-        expect(nav()).toBeInstanceOf(Error);
-    });
-
-    describe('returns an embedded information for incorrect call', () => {
+    describe('returns an information for incorrect call', () => {
 
         it('that only has the constructor', () => {
 
-            const p = nav({X: Z});
+            const p = nav();
 
-            expect(p instanceof Z).toBe(true);
-            expect(p.test instanceof Z).toBe(true);
-            expect(p.test[V].reason).toEqual('Not found');
+            expect(p.test).toBe(_NOT_FOUND_);
         });
 
         it('that has no allowed props', () => {
 
             const object = Object.freeze({a: 1, $b: 2, '$c.d.e': 3});
-            const p = nav({X: Z, object});
+            const p = nav({object});
 
-            expect(p instanceof Z).toBe(true);
-            expect(p.$c[V].reason).toEqual('Not found');
+            expect(p.test).toBe(_NOT_FOUND_);
         });
 
         it('that has no value for the key', () => {
 
             const k1 = Symbol('key');
             const k2 = 'key';
-            const p = nav({X: Z});
+            const p = nav();
 
-            expect(p instanceof Z).toBe(true);
-            expect(p[k1][V].reason).toEqual('Not found');
-            expect(p[k2][V].reason).toEqual('Not found');
+            expect(p[k1]).toEqual(_NOT_FOUND_);
+            expect(p[k2]).toEqual(_NOT_FOUND_);
         });
 
     });
-
 
     it('returns the proper field of a correct call', () => {
 
@@ -61,9 +44,8 @@ describe('function nav', () => {
         const object = Object.freeze({a: 1, $b: 2, [key]: val});
         const allowed = Object.freeze([key]);
 
-        const p = nav({X: Z, object, allowed});
+        const p = nav({object, allowed});
 
-        expect(p instanceof Z).toBe(true);
         expect(p[key]).toEqual(val);
         expect(p.$c.d.e).toEqual(val);
 
