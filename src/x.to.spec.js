@@ -3,7 +3,7 @@
 
 import {describe, expect, it} from '@jest/globals';
 import Eventual from '#src/core/eventual.core.js';
-import {P, TO_BUL, TO_LEN, TO_NUM, TO_STR, V} from '#src/etc/field.const.js';
+import {M, TO_BUL, TO_LEN, TO_NUM, TO_STR, V} from '#src/etc/field.const.js';
 import X from '#src/index.js';
 
 
@@ -35,11 +35,11 @@ describe('function X.prototype', () => {
 
         expect(x).toBeInstanceOf(X);
         expect(x[TO_LEN]).toBeInstanceOf(X);
-        expect(x[P].to.len).toBeInstanceOf(X);
+        expect(x[M].to.len).toBeInstanceOf(X);
 
         expect(x[V]).toBe(value);
         expect(x[TO_LEN][V]).toBe(result);
-        expect(x[P].to.len[V]).toBe(result);
+        expect(x[M].to.len[V]).toBe(result);
 
     });
 
@@ -69,11 +69,11 @@ describe('function X.prototype', () => {
 
         expect(x).toBeInstanceOf(X);
         expect(x[TO_BUL]).toBeInstanceOf(X);
-        expect(x[P].to.bul).toBeInstanceOf(X);
+        expect(x[M].to.bul).toBeInstanceOf(X);
 
         expect(x[V]).toBe(value);
         expect(x[TO_BUL][V]).toBe(result);
-        expect(x[P].to.bul[V]).toBe(result);
+        expect(x[M].to.bul[V]).toBe(result);
 
     });
 
@@ -102,11 +102,11 @@ describe('function X.prototype', () => {
 
         expect(x).toBeInstanceOf(X);
         expect(x[TO_NUM]).toBeInstanceOf(X);
-        expect(x[P].to.num).toBeInstanceOf(X);
+        expect(x[M].to.num).toBeInstanceOf(X);
 
         expect(x[V]).toBe(value);
         expect(x[TO_NUM][V]).toBe(result);
-        expect(x[P].to.num[V]).toBe(result);
+        expect(x[M].to.num[V]).toBe(result);
 
     });
 
@@ -134,11 +134,11 @@ describe('function X.prototype', () => {
 
         expect(x).toBeInstanceOf(X);
         expect(x[TO_STR]).toBeInstanceOf(X);
-        expect(x[P].to.str).toBeInstanceOf(X);
+        expect(x[M].to.str).toBeInstanceOf(X);
 
         expect(x[V]).toBe(value);
         expect(x[TO_STR][V]).toBe(result);
-        expect(x[P].to.str[V]).toBe(result);
+        expect(x[M].to.str[V]).toBe(result);
 
     });
 

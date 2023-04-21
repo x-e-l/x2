@@ -12,7 +12,7 @@ import {
     IS_T_ERROR,
     IS_T_PRIMITIVE,
     IS_T_PROMISE,
-    P,
+    M,
     V,
 } from '#src/etc/field.const.js';
 import X from '#src/index.js';
@@ -42,7 +42,7 @@ describe('function X.prototype', () => {
 
         expect(x[V]).toBe(value);
         expect(x[IS_T_ARRAY]).toBe(result);
-        expect(x[P].is.t.array).toBe(result);
+        expect(x[M].is.t.array).toBe(result);
 
     });
 
@@ -68,7 +68,7 @@ describe('function X.prototype', () => {
 
         expect(x[V]).toBe(value);
         expect(x[IS_F_ARRAY]).toBe(result);
-        expect(x[P].is.f.array).toBe(result);
+        expect(x[M].is.f.array).toBe(result);
 
     });
 
@@ -95,7 +95,7 @@ describe('function X.prototype', () => {
 
         expect(x[V]).toBe(value);
         expect(x[IS_T_ERROR]).toBe(result);
-        expect(x[P].is.t.error).toBe(result);
+        expect(x[M].is.t.error).toBe(result);
 
     });
 
@@ -122,7 +122,7 @@ describe('function X.prototype', () => {
 
         expect(x[V]).toBe(value);
         expect(x[IS_F_ERROR]).toBe(result);
-        expect(x[P].is.f.error).toBe(result);
+        expect(x[M].is.f.error).toBe(result);
 
     });
 
@@ -149,7 +149,7 @@ describe('function X.prototype', () => {
 
         expect(x[V]).toBe(value);
         expect(x[IS_T_PRIMITIVE]).toBe(result);
-        expect(x[P].is.t.primitive).toBe(result);
+        expect(x[M].is.t.primitive).toBe(result);
 
     });
 
@@ -176,7 +176,7 @@ describe('function X.prototype', () => {
 
         expect(x[V]).toBe(value);
         expect(x[IS_F_PRIMITIVE]).toBe(result);
-        expect(x[P].is.f.primitive).toBe(result);
+        expect(x[M].is.f.primitive).toBe(result);
 
     });
 
@@ -204,7 +204,7 @@ describe('function X.prototype', () => {
 
         expect(x[V]).toBe(value);
         expect(x[IS_T_PROMISE]).toBe(result);
-        expect(x[P].is.t.promise).toBe(result);
+        expect(x[M].is.t.promise).toBe(result);
 
     });
 
@@ -232,7 +232,7 @@ describe('function X.prototype', () => {
 
         expect(x[V]).toBe(value);
         expect(x[IS_F_PROMISE]).toBe(result);
-        expect(x[P].is.f.promise).toBe(result);
+        expect(x[M].is.f.promise).toBe(result);
 
     });
 

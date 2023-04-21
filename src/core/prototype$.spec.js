@@ -3,10 +3,10 @@
 
 import {describe, expect, it} from '@jest/globals';
 import prototype$ from './prototype$.core.js';
-import {P, S, V} from '#src/etc/field.const.js';
+import {M, S, V} from '#src/etc/field.const.js';
 
 
-const PREFIX = P + S;
+const PREFIX = M + S;
 
 const K = Object.freeze(
     Object.fromEntries([

@@ -3,7 +3,8 @@
 
 import {describe, expect, it} from '@jest/globals';
 import get from './get.core.js';
-import {P, TO_STR, V} from '#src/etc/field.const.js';
+import {M, TO_STR, V} from '#src/etc/field.const.js';
+import {_NOT_FOUND_} from '#src/etc/value.const.js';
 import X from '#src/index.js';
 
 
@@ -20,10 +21,25 @@ describe('function get', () => {
 
         expect(typeof getter).toBe('function');
 
-        const e = getter()[V];
+        const empty = getter();
 
-        expect(e instanceof Error).toBe(true);
-        expect(e.message).toBe('Reflect.get called on non-object');
+        expect(empty instanceof Z).toBe(true);
+        expect(empty[V]).toBe(_NOT_FOUND_);
+    });
+
+    it('returns an embedded undefined for not found property', () => {
+
+        const getter = get(Z);
+
+        expect(typeof getter).toBe('function');
+
+        const invalid = getter({}, 'invalid');
+        expect(invalid instanceof Z).toBe(true);
+        expect(invalid[V]).toBe(_NOT_FOUND_);
+
+        const empty = getter({}, '');
+        expect(empty instanceof Z).toBe(true);
+        expect(empty[V]).toBe(_NOT_FOUND_);
     });
 
 
@@ -103,7 +119,7 @@ describe('function get', () => {
 
             expect(typeof getter).toBe('function');
             expect(getter(o, k3)[V]).toBe(v3);
-            expect(getter(o, P).to.str).toBe(v2);
+            expect(getter(o, M).to.str).toBe(v2);
 
         });
 

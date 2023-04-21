@@ -2,11 +2,14 @@
 
 // @see https://www.compart.com/en/unicode/block/U+2200
 
-export const V = ''; // String.fromCodePoint(0x2207); // '∇';
-export const P = '*'; // String.fromCodePoint(0x22C6); // ⋆
+const NAB = String.fromCodePoint(0x2207);
+const DOT = String.fromCodePoint(0x22C6);
+
+export const V = Symbol.for(NAB); // '∇';
+export const M = DOT; // ⋆
 export const S = '.';
 
-const PS = P + S;
+const PS = M + S;
 
 export const ES_TYPE = `${PS}es.type`;
 export const ES_VALUE = `${PS}es.value`;

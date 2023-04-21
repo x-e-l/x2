@@ -4,7 +4,7 @@
 
 import {describe, expect, it} from '@jest/globals';
 import X from './index.js';
-import {P, V} from '#src/etc/field.const.js';
+import {M, V} from '#src/etc/field.const.js';
 
 
 // eslint-disable-next-line max-lines-per-function
@@ -28,7 +28,7 @@ describe('function X', () => {
             const object = new Constructor(primitive);
             const value = object.valueOf();
 
-            expect(X(object)[P].es.value).toBe(value);
+            expect(X(object)[M].es.value).toBe(value);
 
         });
 
@@ -51,14 +51,17 @@ describe('function X', () => {
         expect(typeof Z).toBe('function');
         expect(typeof y).toBe('function');
 
-        expect(x[P].es.type).toBe('object');
-        expect(y[P].es.type).toBe('object');
+        const metaX = x[M];
+        const metaY = y[M];
+        
+        expect(metaX.es.type).toBe('object');
+        expect(metaY.es.type).toBe('object');
 
-        expect(x[P].es.value).toBe(object);
-        expect(y[P].es.value).not.toBe(object);
+        expect(metaX.es.value).toBe(object);
+        expect(metaY.es.value).not.toBe(object);
 
-        expect(y[P].es.value instanceof Error).toBe(true);
-        expect(y[P].es.value.message).toBe('X is not sub-class-able');
+        expect(metaY.es.value instanceof Error).toBe(true);
+        expect(metaY.es.value.message).toBe('X is not sub-class-able');
     });
 
     describe('create instance(s) that', () => {

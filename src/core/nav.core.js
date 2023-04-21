@@ -1,7 +1,6 @@
 import ET from '#src/etc/et.const.js';
 import {_NOT_FOUND_} from '#src/etc/value.const.js';
 import estype from '#src/util/estype.util.js';
-import identity from '#src/util/fn/identity.util.js';
 
 
 const join = (prefix, key) => [prefix, key].filter($ => $).join('.');
@@ -12,7 +11,11 @@ const nav = $ => {
     const {object, prefix} = $ ?? {};
     const allowed = $?.allowed ?? [];
 
-    return new Proxy(identity, {
+    // eslint-disable-next-line prefer-const
+    let proxy;
+    const navigate = () => proxy;
+
+    proxy = new Proxy(navigate, {
         get: (_, key) => {
 
             if (ET.sym === estype(key)) {
@@ -35,6 +38,8 @@ const nav = $ => {
             return _NOT_FOUND_;
         },
     });
+
+    return proxy;
 };
 
 

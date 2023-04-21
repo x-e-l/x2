@@ -1,7 +1,10 @@
 import nav from '#src/core/nav.core.js';
 import prototype$ from '#src/core/prototype$.core.js';
-import {V} from '#src/etc/field.const.js';
+import ET from '#src/etc/et.const.js';
+import {S, V} from '#src/etc/field.const.js';
 import KNOWN from '#src/etc/known.const.js';
+import {_NOT_FOUND_} from '#src/etc/value.const.js';
+import estype from '#src/util/estype.util.js';
 
 
 const FIELDS = Object.keys(prototype$());
@@ -18,11 +21,11 @@ const getter = X => {
                 k = k[V];
             }
 
-            if (k === V || 'symbol' === typeof k || KNOWN.includes(k) || FIELDS.includes(k)) {
+            if (k === V || ET.sym === estype(k) || KNOWN.includes(k) || FIELDS.includes(k)) {
                 return Reflect.get(t, k, r);
             }
 
-            if (FIELDS.some($ => $.startsWith(k))) {
+            if (FIELDS.some($ => $.startsWith(k + S))) {
                 return nav({object: t, prefix: k, allowed: FIELDS});
             }
 
@@ -49,11 +52,13 @@ const getter = X => {
                 }
 
                 return new X(Reflect.get(t, V, r)?.[k]);
-
             }
 
-            return new X(Reflect.get(t, k, r));
-
+            return new X(
+                ET.obj === estype(t) && Reflect.has(t, k)
+                    ? Reflect.get(t, k, r)
+                    : _NOT_FOUND_,
+            );
 
         } catch (e) {
             return new X(e);
