@@ -3,6 +3,7 @@
 import {describe, expect, it} from '@jest/globals';
 import common$ from './common$.core.js';
 import {V} from '#src/etc/field.const.js';
+import {_NOT_FOUND_} from '#src/etc/value.const.js';
 
 
 describe('function common$', () => {
@@ -25,6 +26,7 @@ describe('function common$', () => {
             NaN,
             +Infinity,
             -Infinity,
+            _NOT_FOUND_,
         ]);
 
         const map = new Map();
