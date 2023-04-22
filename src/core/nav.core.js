@@ -1,14 +1,13 @@
 import ET from '#src/etc/et.const.js';
+import {S} from '#src/etc/field.const.js';
 import {_NOT_FOUND_} from '#src/etc/value.const.js';
+import includes from '#src/util/ar/includes.util.js';
 import estype from '#src/util/estype.util.js';
 
 
-const join = (prefix, key) => [prefix, key].filter($ => $).join('.');
-const by = path => $ => $.startsWith(path);
-
 const nav = $ => {
 
-    const {object, prefix} = $ ?? {};
+    const {object, prefix = ''} = $ ?? {};
     const allowed = $?.allowed ?? [];
 
     // eslint-disable-next-line prefer-const
@@ -26,12 +25,12 @@ const nav = $ => {
                 );
             }
 
-            const path = join(prefix, key);
-            if (allowed.includes(path)) {
+            const path = prefix ? [prefix, key].join(S) : key;
+            if (includes({allowed, path, full: true})) {
                 return object?.[path];
             }
 
-            if (path !== prefix && allowed.some(by(path))) {
+            if (includes({allowed, path})) {
                 return nav({object, allowed, prefix: path});
             }
 

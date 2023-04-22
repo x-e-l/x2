@@ -1,10 +1,12 @@
 import nav from '#src/core/nav.core.js';
 import prototype$ from '#src/core/prototype$.core.js';
 import ET from '#src/etc/et.const.js';
-import {S, V} from '#src/etc/field.const.js';
+import {M, V} from '#src/etc/field.const.js';
 import KNOWN from '#src/etc/known.const.js';
 import {_NOT_FOUND_} from '#src/etc/value.const.js';
 import estype from '#src/util/estype.util.js';
+import isPrimitive from '#src/util/is/primitive.util.js';
+import toString from '#src/util/to/string.util.js'; // eslint-disable-line no-shadow
 
 
 const FIELDS = Object.keys(prototype$());
@@ -13,7 +15,7 @@ const FIELDS = Object.keys(prototype$());
 // eslint-disable-next-line max-lines-per-function
 const getter = X => {
 
-    // noinspection UnnecessaryLocalVariableJS
+    // eslint-disable-next-line complexity
     const get = (t, k, r) => { // eslint-disable-line max-lines-per-function
         try {
 
@@ -21,12 +23,16 @@ const getter = X => {
                 k = k[V];
             }
 
-            if (k === V || ET.sym === estype(k) || KNOWN.includes(k) || FIELDS.includes(k)) {
-                return Reflect.get(t, k, r);
+            while (!isPrimitive(k)) {
+                k = toString(k);
             }
 
-            if (FIELDS.some($ => $.startsWith(k + S))) {
-                return nav({object: t, prefix: k, allowed: FIELDS});
+            if (M === k) {
+                return nav({object: t, allowed: FIELDS});
+            }
+
+            if (k === V || ET.sym === estype(k) || KNOWN.includes(k) || FIELDS.includes(k)) {
+                return Reflect.get(t, k, r);
             }
 
             const index = Number.parseFloat(k);
