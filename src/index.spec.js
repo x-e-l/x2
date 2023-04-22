@@ -38,11 +38,11 @@ describe('function X', () => {
 
         const object = Object.freeze({});
 
-        class Z extends X.constructor {
+        class Z extends X.class {
         }
 
         // noinspection JSPotentiallyInvalidConstructorUsage
-        const x = new X.constructor(object);
+        const x = X(object);
         // noinspection JSCheckFunctionSignatures
         const y = new Z(object);
 
@@ -53,7 +53,7 @@ describe('function X', () => {
 
         const metaX = x[M];
         const metaY = y[M];
-        
+
         expect(metaX.es.type).toBe('object');
         expect(metaY.es.type).toBe('object');
 

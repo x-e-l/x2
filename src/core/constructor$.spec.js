@@ -28,7 +28,7 @@ describe('function constructor$', () => {
         const y = constructor$(Z);
 
         expect(y).toBe(Z.X);
-        expect(y.constructor).toBe(Z);
+        expect(y.class).toBe(Z);
         expect(y.prototype).toBe(Z.prototype);
 
         try {

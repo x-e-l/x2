@@ -5,7 +5,7 @@ const constructor$ = X => {
         throw new TypeError('X and X.X must both be instances of Function');
     }
 
-    X.X.constructor = X;
+    X.X.class = X;
     X.X.prototype = X.prototype;
 
     return Object.freeze(X.X);
