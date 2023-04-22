@@ -1,6 +1,6 @@
 /* eslint-disable no-magic-numbers */
 import {describe, expect, it} from '@jest/globals';
-import push from '#src/util/ar/push.util.js';
+import push from './push.util.js';
 
 
 describe('function push', () => {
