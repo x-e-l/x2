@@ -8,6 +8,17 @@ import {_NOT_FOUND_} from '#src/etc/value.const.js';
 
 describe('function nav', () => {
 
+    it('returns itself if called', () => {
+
+        const object = Object.freeze({});
+        const allowed = Object.freeze([]);
+
+        const n = nav({object, allowed});
+
+        expect(n()).toEqual(n);
+
+    });
+
     describe('returns an information for incorrect call', () => {
 
         it('that only has the constructor', () => {
@@ -39,15 +50,24 @@ describe('function nav', () => {
 
     it('returns the proper field of a correct call', () => {
 
-        const key = '$c.d.e';
         const val = Object.freeze({});
-        const object = Object.freeze({a: 1, $b: 2, [key]: val});
-        const allowed = Object.freeze([key]);
 
-        const p = nav({object, allowed});
+        const k1 = '$c.d.e';
+        const o1 = Object.freeze({a: 1, $b: 2, [k1]: val});
+        const a1 = Object.freeze([k1]);
 
-        expect(p[key]).toEqual(val);
-        expect(p.$c.d.e).toEqual(val);
+        const nav1 = nav({object: o1, allowed: a1});
+
+        expect(nav1[k1]).toEqual(val);
+        expect(nav1.$c.d.e).toEqual(val);
+
+        const k2 = Symbol('k2');
+        const o2 = Object.freeze({[k2]: val});
+        const nav2 = nav({object: o2});
+
+        expect(nav2[k2]).toEqual(val);
 
     });
+
+
 });

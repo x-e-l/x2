@@ -24,7 +24,9 @@ describe('function includes', () => {
         [true, {allowed: ['x.y.z'], path: ['x'], full: false}],
         [false, {allowed: ['x.y.z'], path: ['x'], full: true}],
         [true, {allowed: ['x.y.z'], path: ['x', 'y', 'z'], full: true}],
-    ])('returns %p for %p, %p', expect(includes).toMapExact);
+        //
+        [false, {allowed: ['x.y.z'], path: 'x.y.z.w.1.2.3', full: false}],
+    ])('returns %p for %p', expect(includes).toMapExact);
 
 
 });

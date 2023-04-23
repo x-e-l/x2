@@ -17,14 +17,25 @@ describe('function get', () => {
 
     it('returns an embedded error for incorrect call', () => {
 
-        const getter = get(Z);
+        const g = get(Z);
 
-        expect(typeof getter).toBe('function');
+        expect(typeof g).toBe('function');
 
-        const empty = getter();
+        const empty = g();
 
         expect(empty instanceof Z).toBe(true);
         expect(empty[V]).toBe(_NOT_FOUND_);
+
+        const message = `message: ${Math.random()}`;
+        const handler = {
+            get: () => {
+                throw new Error(message);
+            },
+        };
+        const error = g(new Proxy({}, handler), V);
+        expect(error instanceof Z).toBe(true);
+        expect(error[V] instanceof Error).toBe(true);
+        expect(error[V].message).toBe(message);
     });
 
     it('returns an embedded undefined for not found property', () => {
@@ -85,6 +96,19 @@ describe('function get', () => {
 
             expect(typeof getter).toBe('function');
             expect(getter(o, key)).toBe(val);
+
+        });
+
+        it('for an object key', () => {
+
+            const key = Object.freeze({role: 'key'});
+            const val = Object.freeze({role: 'val'});
+            const o = Object.freeze({[key]: val});
+
+            const g = get(Z);
+
+            expect(typeof g).toBe('function');
+            expect(g(o, key)[V]).toBe(val);
 
         });
 

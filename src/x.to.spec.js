@@ -3,11 +3,50 @@
 
 import {describe, expect, it} from '@jest/globals';
 import Eventual from '#src/core/eventual.core.js';
-import {M, TO_BUL, TO_LEN, TO_NUM, TO_STR, V} from '#src/etc/field.const.js';
+import iterator from '#src/core/iterator.core.js';
+import {M, TO_BUL, TO_ITE, TO_LEN, TO_NUM, TO_STR, V} from '#src/etc/field.const.js';
 import X from '#src/index.js';
 
 
 describe('function X.prototype', () => {
+
+    it.each([
+        null,
+        void 1,
+        false,
+        true,
+        NaN,
+        3,
+        Symbol('s'),
+        Object.create(null),
+        new Error('message'),
+        Eventual.resolve(),
+        '',
+        'asdf',
+        $ => $,
+        [],
+        ['a', 'b', 'c'],
+        [1, 2, 3],
+        //
+    ])('[TO_ITE] returns %p for %p', value => {
+
+        const x = X(value);
+
+        expect(x).toBeInstanceOf(X);
+
+        const actual = [...x[TO_ITE]];
+        const expected = [...iterator(X.class, x)];
+
+        expect(actual.length).toBe(expected.length);
+        for (let i = 0; i < expected.length; i += 1) {
+            expect(actual[i] instanceof X).toBe(true);
+            expect(expected[i] instanceof X).toBe(true);
+        }
+
+        const embedded = $ => $[V];
+        expect(actual.map(embedded)).toStrictEqual(expected.map(embedded));
+
+    });
 
     it.each([
         // result, value
