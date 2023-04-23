@@ -1,20 +1,8 @@
 import ET from '#src/etc/et.const.js';
 import {V} from '#src/etc/field.const.js';
+import TAG from '#src/etc/tag.const.js';
 import estype from '#src/util/estype.util.js';
 
-
-const TAG = Object.freeze({
-    array:     '(arr)',
-    bigint:    '(bnt)',
-    boolean:   '(bul)',
-    function:  '(fun)',
-    number:    '(num)',
-    object:    '(obj)',
-    null:      '(nul)',
-    string:    '(str)',
-    symbol:    '(sym)',
-    undefined: '(und)',
-});
 
 const rename$ = (
 

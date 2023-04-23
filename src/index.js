@@ -3,6 +3,7 @@
 
 import apply from '#src/core/apply.core.js';
 import common$ from '#src/core/common$.core.js';
+import construct from '#src/core/construct.core.js';
 import constructor$ from '#src/core/constructor$.core.js';
 import get from '#src/core/get.core.js';
 import prototype$ from '#src/core/prototype$.core.js';
@@ -37,7 +38,11 @@ class X extends Function {
         const isWrapper = $ instanceof Boolean || $ instanceof Number || $ instanceof String;
         this[V] = isWrapper ? $.valueOf() : $;
 
-        return new Proxy(rename$(this), {get: get(X, this), apply: apply(X)}); // eslint-disable-line no-constructor-return
+        // eslint-disable-next-line no-constructor-return
+        return new Proxy(
+            rename$(this),
+            {get: get(X, this), apply: apply(X), construct: construct(X)},
+        );
     }
 
     static X($) {
