@@ -21,10 +21,6 @@ class X extends Function {
         const $ = $$.pop();
         const options = $$.pop();
 
-        if (new.target !== X) {
-            return new X(new TypeError('X is not sub-class-able')); // eslint-disable-line no-constructor-return
-        }
-
         if ($ instanceof X) {
             return $; // eslint-disable-line no-constructor-return
         }

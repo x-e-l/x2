@@ -34,7 +34,7 @@ describe('function X', () => {
 
     });
 
-    it('does not allow subclassing', () => {
+    it('allows subclassing', () => {
 
         const object = Object.freeze({});
 
@@ -44,24 +44,25 @@ describe('function X', () => {
         // noinspection JSPotentiallyInvalidConstructorUsage
         const x = X(object);
         // noinspection JSCheckFunctionSignatures
-        const y = new Z(object);
+        const z = new Z(object);
+
+        expect(x instanceof X).toBe(true);
+        expect(z instanceof Z).toBe(true);
+        expect(z instanceof X).toBe(true);
 
         expect(typeof X.constructor).toBe('function');
         expect(typeof x).toBe('function');
         expect(typeof Z).toBe('function');
-        expect(typeof y).toBe('function');
+        expect(typeof z).toBe('function');
 
         const metaX = x[M];
-        const metaY = y[M];
+        const metaZ = z[M];
 
         expect(metaX.es.type).toBe('object');
-        expect(metaY.es.type).toBe('object');
+        expect(metaZ.es.type).toBe('object');
 
         expect(metaX.es.value).toBe(object);
-        expect(metaY.es.value).not.toBe(object);
-
-        expect(metaY.es.value instanceof Error).toBe(true);
-        expect(metaY.es.value.message).toBe('X is not sub-class-able');
+        expect(metaZ.es.value).toBe(object);
     });
 
     it('allows for passing of options', () => {
