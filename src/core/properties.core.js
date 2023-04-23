@@ -26,9 +26,6 @@ import toPrimitive from '#src/util/to/primitive.util.js';
 import toString from '#src/util/to/string.util.js'; // eslint-disable-line no-shadow
 
 
-const {isArray} = Array;
-
-
 const properties = X => ({
     // @formatter:off
 
@@ -36,8 +33,8 @@ const properties = X => ({
     [ES_VALUE]: {get() { return this[V]; }},
 
 
-    [IS_T_ARRAY]: {get() { return isArray(this[V]); }},
-    [IS_F_ARRAY]: {get() { return !isArray(this[V]); }},
+    [IS_T_ARRAY]: {get() { return Array.isArray(this[V]); }},
+    [IS_F_ARRAY]: {get() { return !Array.isArray(this[V]); }},
 
     [IS_T_ERROR]: {get() { return this[V] instanceof Error; }},
     [IS_F_ERROR]: {get() { return !(this[V] instanceof Error); }},
@@ -65,12 +62,4 @@ const properties = X => ({
 });
 
 
-// eslint-disable-next-line max-lines-per-function
-const prototype$ = X => {
-    const props = properties(X);
-    Object.defineProperties(X?.prototype ?? {}, props);
-    return props;
-};
-
-// noinspection JSUnusedGlobalSymbols
-export default prototype$;
+export default properties;

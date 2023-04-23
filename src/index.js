@@ -5,7 +5,7 @@ import apply from '#src/core/apply.core.js';
 import common$ from '#src/core/common$.core.js';
 import construct from '#src/core/construct.core.js';
 import get from '#src/core/get.core.js';
-import prototype$ from '#src/core/prototype$.core.js';
+import properties from '#src/core/properties.core.js';
 import rename$ from '#src/core/rename$.core.js';
 import reuse from '#src/core/reuse.core.js';
 import {V} from '#src/etc/field.const.js';
@@ -57,11 +57,12 @@ class X extends Function {
 }
 
 
+Object.defineProperties(X.prototype, properties(X));
+
 X.X.class = X;
 X.X.prototype = X.prototype;
 Object.freeze(X.X);
 
-prototype$(X);
 common$(X, COMMON);
 
 

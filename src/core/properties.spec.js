@@ -2,7 +2,7 @@
 // noinspection JSCheckFunctionSignatures
 
 import {describe, expect, it} from '@jest/globals';
-import prototype$ from './prototype$.core.js';
+import properties from './properties.core.js';
 import get from '#src/core/get.core.js';
 import {M, V} from '#src/etc/field.const.js';
 
@@ -29,27 +29,15 @@ const KEYS = Object.freeze(
 );
 
 
-describe('function prototype$', () => {
+describe('function properties', () => {
 
     it('returns the properties even if the constructor is missing', () => {
 
-        const actual = prototype$();
+        const actual = properties();
 
         expect(actual).toBeTruthy();
         expect(typeof actual).toBe('object');
         expect(Object.keys(actual)).toStrictEqual(KEYS);
-
-    });
-
-    it('correctly calls the embedded function', () => {
-
-        const p = Object.create(null);
-        const c = Object.create(null);
-        c.prototype = p;
-
-        prototype$(c);
-
-        expect(Object.getOwnPropertyNames(p)).toStrictEqual(KEYS);
 
     });
 
@@ -61,7 +49,7 @@ describe('function prototype$', () => {
             return new Proxy(this, {get: get(Z, this)});
         }
 
-        prototype$(Z);
+        Object.defineProperties(Z.prototype, properties(Z));
 
         it('array', () => {
 

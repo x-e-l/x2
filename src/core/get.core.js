@@ -1,5 +1,5 @@
 import nav from '#src/core/nav.core.js';
-import prototype$ from '#src/core/prototype$.core.js';
+import properties from '#src/core/properties.core.js';
 import ET from '#src/etc/et.const.js';
 import {M, V} from '#src/etc/field.const.js';
 import KNOWN from '#src/etc/known.const.js';
@@ -9,7 +9,7 @@ import isPrimitive from '#src/util/is/primitive.util.js';
 import toString from '#src/util/to/string.util.js'; // eslint-disable-line no-shadow
 
 
-const FIELDS = Object.keys(prototype$());
+const FIELDS = Object.keys(properties());
 
 
 // eslint-disable-next-line max-lines-per-function
