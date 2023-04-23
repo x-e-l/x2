@@ -4,7 +4,6 @@
 import apply from '#src/core/apply.core.js';
 import common$ from '#src/core/common$.core.js';
 import construct from '#src/core/construct.core.js';
-import constructor$ from '#src/core/constructor$.core.js';
 import get from '#src/core/get.core.js';
 import prototype$ from '#src/core/prototype$.core.js';
 import rename$ from '#src/core/rename$.core.js';
@@ -57,7 +56,11 @@ class X extends Function {
     }
 }
 
-constructor$(X);
+
+X.X.class = X;
+X.X.prototype = X.prototype;
+Object.freeze(X.X);
+
 prototype$(X);
 common$(X, COMMON);
 
