@@ -18,7 +18,9 @@ const COMMON = new Map();
 
 class X extends Function {
 
-    constructor($) {
+    constructor(...$$) {
+        const $ = $$.pop();
+        const options = $$.pop();
 
         if (new.target !== X) {
             return new X(new TypeError('X is not sub-class-able')); // eslint-disable-line no-constructor-return
@@ -38,15 +40,20 @@ class X extends Function {
         const isWrapper = $ instanceof Boolean || $ instanceof Number || $ instanceof String;
         this[V] = isWrapper ? $.valueOf() : $;
 
+        rename$(this);
+        if (options?.new && 'function' === typeof $) {
+            this[V] = {[this.name]: (...$$) => new $(...$$)}[this.name];
+        }
+
+        const handler = {get: get(X, this), apply: apply(X), construct: construct(X)};
+
+
         // eslint-disable-next-line no-constructor-return
-        return new Proxy(
-            rename$(this),
-            {get: get(X, this), apply: apply(X), construct: construct(X)},
-        );
+        return new Proxy(this, handler);
     }
 
-    static X($) {
-        return new X($);
+    static X(...$$) {
+        return new X(...$$);
     }
 }
 

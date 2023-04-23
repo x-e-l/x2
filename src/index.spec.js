@@ -64,6 +64,21 @@ describe('function X', () => {
         expect(metaY.es.value.message).toBe('X is not sub-class-able');
     });
 
+    it('allows for passing of options', () => {
+        const Z = function Z($) {
+            Object.assign(this, {...$});
+        };
+
+        const a = Object.freeze({a: 1});
+        const Y = X({new: true}, Z);
+        const z = Y({a});
+
+        expect(`"${Z.name}"`).toBe(Y.name[V]);
+        expect(z[V] instanceof Z).toBe(true);
+        expect(z[V].a).toBe(a);
+
+    });
+
     describe('create instance(s) that', () => {
 
         it('can be used as a key/index', () => {
